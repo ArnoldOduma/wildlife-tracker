@@ -1,44 +1,64 @@
 package models;
 
+import interfaces.AnimalInterface;
+import org.sql2o.Connection;
+import org.sql2o.Sql2o;
+
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-public class Animal {
-    private String name;
-    private int age;
-    private int id;
-    private static ArrayList<Animal> allAnimals = new ArrayList<>();
+public class Animal implements AnimalInterface {
 
-    public Animal(String name,int age){
-        this.name = name;
-        this.age = age;
-        allAnimals.add(this);
+
+    private int animal_id;
+    private String animal_name;
+    private String animal_health;
+    private String animal_age;
+    private int id;
+
+    public Animal(int animal_id, String animal_name, String animal_age, String animal_health){
+        this.animal_id = animal_id;
+        this.animal_name = animal_name;
+        this.animal_age = animal_age;
+        this.animal_health = animal_health;
         this.id = 1;
     }
 
-    public static Animal setUpAnimal(){return new Animal("Rhino",5);}
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Animal)) return false;
-        Animal animal = (Animal) o;
-        return getAge() == animal.getAge() &&
-                getId() == animal.getId() &&
-                getName().equals(animal.getName());
+    public static Animal setUpNewAnimal() {
+        return new Animal(23,"Cat","Old","Heathy");
     }
 
-    @Override
-    public int hashCode() {
-        return Objects.hash(getName(), getAge(), getId());
+    public int getAnimal_id() {
+        return animal_id;
     }
 
-    public int getAge() {
-        return age;
+    public void setAnimal_id(int animal_id) {
+        this.animal_id = animal_id;
     }
 
-    public void setAge(int age) {
-        this.age = age;
+    public String getAnimal_name() {
+        return animal_name;
+    }
+
+    public void setAnimal_name(String animal_name) {
+        this.animal_name = animal_name;
+    }
+
+    public String getAnimal_heath() {
+        return animal_health;
+    }
+
+    public void setAnimal_health(String animal_heath) {
+        this.animal_health = animal_heath;
+    }
+
+    public String getAnimal_age() {
+        return animal_age;
+    }
+
+    public void setAnimal_age(String animal_age) {
+        this.animal_age = animal_age;
     }
 
     public int getId() {
@@ -49,24 +69,31 @@ public class Animal {
         this.id = id;
     }
 
-    public static ArrayList<Animal> getAllAnimals() {
-        return allAnimals;
+    @Override
+    public void saveAnimal(Animal animal) {
+        try (Connection conn = Database.sql2otest2.open()){
+            String sql = "INSERT INTO  animals(animal_id, animal_name, animal_age, animal_health ) VALUES (:animal_id, :animal_name, :animal_age,:animal_health);";
+            this.id = (int) conn.createQuery(sql, true)
+                    .addParameter("animal_id", this.animal_id)
+                    .addParameter("animal_name", this.animal_name)
+                    .addParameter("animal_age", this.animal_age)
+                    .addParameter("animal_health", this.animal_health)
+                    .executeUpdate()
+                    .getKey();
+        }
     }
 
-    public static void setAllAnimals(ArrayList<Animal> animals) {
-        Animal.allAnimals = animals;
-    }
+    @Override
+    public List<Animal> getAll() {return null;}
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public static void clearAll(){
-        Animal.allAnimals.clear();
+    @Override
+    public Animal findById(int id) {
+        String sql = "SELECT * FROM animals WHERE id=:id";
+        try (Connection conn = Database.sql2otest2.open()){
+            return conn.createQuery(sql)
+                    .addParameter("id",id)
+                    .executeAndFetchFirst(Animal.class);
+        }
     }
 
 }
