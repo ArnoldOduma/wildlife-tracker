@@ -51,7 +51,7 @@ public class AnimalTest {
     @Test
     public void saveAnimal() {
         Animal newAnimal = Animal.setUpNewAnimal();
-        EndangeredAnimal newDanger = new EndangeredAnimal(2,"Gazelle","Healthy","young");
+        EndangeredAnimal newDanger = new EndangeredAnimal("Rhino","ill","young");
         newDanger.saveAnimal(newDanger);
         int initialId = newAnimal.getId();
         newAnimal.saveAnimal(newAnimal);
