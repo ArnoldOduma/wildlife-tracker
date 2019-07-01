@@ -1,9 +1,7 @@
 package models;
 
-import org.junit.*;
+import org.junit.Test;
 import static org.junit.Assert.*;
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertTrue;
 
 public class AnimalTest {
 
@@ -11,7 +9,7 @@ public class AnimalTest {
     @Test
     public void getAnimal_age() {
         Animal newAnimal = Animal.setUpNewAnimal();
-        assertEquals("Old",newAnimal.getAnimal_age());
+        assertEquals("young",newAnimal.getAnimal_age());
     }
 
     @Test
@@ -32,7 +30,7 @@ public class AnimalTest {
     @Test
     public void getName() {
         Animal newAnimal = Animal.setUpNewAnimal();
-        assertEquals("Cat",newAnimal.getAnimal_name());
+        assertEquals("Koala Bear",newAnimal.getAnimal_name());
     }
 
     @Test
@@ -43,18 +41,36 @@ public class AnimalTest {
     }
 
     @Test
-    public void equals1() {
-    }
+    public void equals() {
+        Animal newAnimal = Animal.setUpNewAnimal();
+        newAnimal.saveAnimal(newAnimal);
+        assertNotEquals(newAnimal,newAnimal.findById(newAnimal.getId()));
 
-    @Test
-    public void hashCode1() {
     }
 
     @Test
     public void saveAnimal() {
         Animal newAnimal = Animal.setUpNewAnimal();
+        EndangeredAnimal newDanger = new EndangeredAnimal(2,"Gazelle","Healthy","young");
+        newDanger.saveAnimal(newDanger);
         int initialId = newAnimal.getId();
         newAnimal.saveAnimal(newAnimal);
         assertNotEquals(initialId,newAnimal.getId());
     }
+    @Test
+    public void getAllAnimals() throws Exception{
+        Animal newAnimal = Animal.setUpNewAnimal();
+        newAnimal.saveAnimal(newAnimal);
+
+        assertEquals(newAnimal.getId(),Animal.getAllAnimals().size());
+    }
+
+    @Test
+    public void findAnimalById() {
+        Animal newAnimal = Animal.setUpNewAnimal();
+        newAnimal.saveAnimal(newAnimal);
+        assertEquals(newAnimal.getId(), newAnimal.findById(newAnimal.getId()).getId());
+    }
+
+
 }

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Animal implements AnimalInterface {
+public class Animal implements AnimalInterface{
 
 
     private int animal_id;
@@ -17,17 +17,15 @@ public class Animal implements AnimalInterface {
     private String animal_age;
     private int id;
 
-    public Animal(int animal_id, String animal_name, String animal_age, String animal_health){
+    public Animal(int animal_id, String animal_name){
         this.animal_id = animal_id;
         this.animal_name = animal_name;
-        this.animal_age = animal_age;
-        this.animal_health = animal_health;
-        this.id = 1;
+        this.id = 0;
+    }
+    public static Animal setUpNewAnimal() {
+        return new Animal(1, "Koala Bear");
     }
 
-    public static Animal setUpNewAnimal() {
-        return new Animal(23,"Cat","Old","Heathy");
-    }
 
     public int getAnimal_id() {
         return animal_id;
@@ -45,12 +43,12 @@ public class Animal implements AnimalInterface {
         this.animal_name = animal_name;
     }
 
-    public String getAnimal_heath() {
+    public String getAnimal_health() {
         return animal_health;
     }
 
-    public void setAnimal_health(String animal_heath) {
-        this.animal_health = animal_heath;
+    public void setAnimal_health(String animal_health) {
+        this.animal_health = animal_health;
     }
 
     public String getAnimal_age() {
@@ -70,29 +68,54 @@ public class Animal implements AnimalInterface {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Animal)) return false;
+        Animal animal = (Animal) o;
+        return getAnimal_id() == animal.getAnimal_id() &&
+                getId() == animal.getId() &&
+                getAnimal_name().equals(animal.getAnimal_name()) &&
+                getAnimal_health().equals(animal.getAnimal_health()) &&
+                getAnimal_age().equals(animal.getAnimal_age());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getAnimal_id(), getAnimal_name(), getAnimal_health(), getAnimal_age(), getId());
+    }
+
+    @Override
     public void saveAnimal(Animal animal) {
         try (Connection conn = Database.sql2otest2.open()){
-            String sql = "INSERT INTO  animals(animal_id, animal_name, animal_age, animal_health ) VALUES (:animal_id, :animal_name, :animal_age,:animal_health);";
+            String sql = "INSERT INTO  animals(animal_id, animal_name ) VALUES (:animal_id, :animal_name);";
             this.id = (int) conn.createQuery(sql, true)
                     .addParameter("animal_id", this.animal_id)
                     .addParameter("animal_name", this.animal_name)
-                    .addParameter("animal_age", this.animal_age)
-                    .addParameter("animal_health", this.animal_health)
                     .executeUpdate()
                     .getKey();
         }
     }
 
-    @Override
-    public List<Animal> getAll() {return null;}
+    public static List<Animal> getAllAnimals() {
+        try(Connection conn = Database.sql2otest2.open()){
+            String sql = "SELECT * FROM animals ORDER BY id DESC;";
+            return conn.createQuery(sql)
+                    .throwOnMappingFailure(false)
+                    .executeAndFetch(Animal.class);
+        }
+    }
 
     @Override
     public Animal findById(int id) {
-        String sql = "SELECT * FROM animals WHERE id=:id";
+        String sql = "SELECT * FROM animals WHERE id=:id;";
         try (Connection conn = Database.sql2otest2.open()){
-            return conn.createQuery(sql)
+            Animal animal = conn.createQuery(sql)
                     .addParameter("id",id)
                     .executeAndFetchFirst(Animal.class);
+             return animal;
+        }catch (IndexOutOfBoundsException ex){
+            System.out.println(ex);
+            return null;
         }
     }
 
