@@ -1,13 +1,23 @@
 SET MODE PostgreSQL;
+
+CREATE TABLE IF NOT EXISTS endangered_animals(
+	id SERIAL PRIMARY KEY,
+    animal_id int,
+    animal_name VARCHAR ,
+    animal_age VARCHAR,
+    animal_health VARCHAR
+);
+
 CREATE TABLE IF NOT EXISTS animals(
-    id int PRIMARY KEY auto_increment,
-    name VARCHAR ,
-    age int
+	id SERIAL PRIMARY KEY,
+    animal_id int,
+    animal_name VARCHAR
 );
 
 CREATE TABLE IF NOT EXISTS sightings(
-    id int PRIMARY KEY auto_increment,
+    id SERIAL PRIMARY KEY,
     animal_id int,
     animal_location VARCHAR ,
-    ranger_name VARCHAR
+    ranger_name VARCHAR,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
