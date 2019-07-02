@@ -1,23 +1,11 @@
 package models;
 
+import org.junit.Rule;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class AnimalTest {
 
-
-    @Test
-    public void getAnimal_age() {
-        Animal newAnimal = Animal.setUpNewAnimal();
-        assertEquals("young",newAnimal.getAnimal_age());
-    }
-
-    @Test
-    public void setanimal_age() {
-        Animal newAnimal = Animal.setUpNewAnimal();
-        newAnimal.setAnimal_age("Young");
-        assertEquals("Young",newAnimal.getAnimal_age());
-    }
 
 
     @Test
@@ -44,9 +32,12 @@ public class AnimalTest {
     public void equals() {
         Animal newAnimal = Animal.setUpNewAnimal();
         newAnimal.saveAnimal(newAnimal);
-        assertNotEquals(newAnimal,newAnimal.findById(newAnimal.getId()));
+        assertEquals(newAnimal.getId(),newAnimal.findById(newAnimal.getId()).getId());
 
     }
+
+    @Rule
+    public DatabaseRule database = new DatabaseRule();
 
     @Test
     public void saveAnimal() {
@@ -61,8 +52,7 @@ public class AnimalTest {
     public void getAllAnimals() throws Exception{
         Animal newAnimal = Animal.setUpNewAnimal();
         newAnimal.saveAnimal(newAnimal);
-
-        assertEquals(newAnimal.getId(),Animal.getAllAnimals().size());
+        assertTrue(Animal.getAllAnimals().contains(newAnimal.findById(newAnimal.getId())));
     }
 
     @Test

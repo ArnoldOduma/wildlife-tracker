@@ -1,5 +1,6 @@
 package models;
 
+import org.junit.Rule;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -11,7 +12,6 @@ public class SightingTest {
         int initialId = newSighting.getId();
         newSighting.saveSightedAnimal(newSighting);
         assertNotEquals(initialId,newSighting.getId());
-
     }
 
     @Test
@@ -33,6 +33,9 @@ public class SightingTest {
         oldSighting.saveSightedAnimal(oldSighting);
         assertEquals(oldSighting, oldSighting.findAnimalById(oldSighting.getId()));
     }
+
+    @Rule
+    public DatabaseRule database = new DatabaseRule();
 
     @Test
     public void saveSightedAnimal() {
