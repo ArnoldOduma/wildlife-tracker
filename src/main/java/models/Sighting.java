@@ -76,7 +76,7 @@ public class Sighting {
     }
 
     public void saveSightedAnimal(Sighting sighting) {
-        try (Connection conn = Database.sql2otest2.open()){
+        try (Connection conn = Database.sql2o.open()){
             String sql = "INSERT INTO  sightings(animal_id, animal_location, ranger_name ) VALUES (:animal_id, :animal_location, :ranger_name);";
             this.id = (int) conn.createQuery(sql, true)
                     .addParameter("animal_id", this.animal_id)
@@ -88,7 +88,7 @@ public class Sighting {
     }
 
     public static List<Sighting> allSightings() {
-        try(Connection conn = Database.sql2otest2.open()){
+        try(Connection conn = Database.sql2o.open()){
 
             String sql = "SELECT * FROM sightings ORDER BY id DESC;";
             return conn.createQuery(sql)
@@ -98,10 +98,12 @@ public class Sighting {
     }
 
     public Sighting findAnimalById(int id) {
-        try (Connection conn = Database.sql2otest2.open()){
+        try (Connection conn = Database.sql2o.open()){
             String sql = "SELECT * FROM sightings WHERE id=:id;";
-            Sighting sighting = conn.createQuery(sql)
+            Sighting sighting = conn
+                    .createQuery(sql)
                     .addParameter("id", id)
+                    .throwOnMappingFailure(false)
                     .executeAndFetchFirst(Sighting.class);
             return sighting;
         }catch (IndexOutOfBoundsException ex){

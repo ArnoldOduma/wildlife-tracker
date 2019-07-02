@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="7" failures="0" name="models.SightingTest" time="0.145" errors="2" skipped="0">
+<testsuite tests="7" failures="0" name="models.SightingTest" time="2.828" errors="5" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="11.0.3+7-LTS"/>
@@ -62,20 +62,13 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="models.SightingTest" name="equals1" time="0.033">
-    <error message="Could not map sighted_at to any property." type="org.sql2o.Sql2oException">org.sql2o.Sql2oException: Could not map sighted_at to any property.
-	at org.sql2o.DefaultResultSetHandlerFactory.newResultSetHandler0(DefaultResultSetHandlerFactory.java:156)
-	at org.sql2o.DefaultResultSetHandlerFactory.access$200(DefaultResultSetHandlerFactory.java:16)
-	at org.sql2o.DefaultResultSetHandlerFactory$3.evaluate(DefaultResultSetHandlerFactory.java:118)
-	at org.sql2o.DefaultResultSetHandlerFactory$3.evaluate(DefaultResultSetHandlerFactory.java:114)
-	at org.sql2o.tools.AbstractCache.get(AbstractCache.java:49)
-	at org.sql2o.DefaultResultSetHandlerFactory.newResultSetHandler(DefaultResultSetHandlerFactory.java:131)
-	at org.sql2o.PojoResultSetIterator.&lt;init&gt;(PojoResultSetIterator.java:21)
-	at org.sql2o.Query$10.iterator(Query.java:414)
-	at org.sql2o.Query.executeAndFetchFirst(Query.java:481)
-	at org.sql2o.Query.executeAndFetchFirst(Query.java:469)
-	at models.Sighting.findAnimalById(Sighting.java:105)
-	at models.SightingTest.equals1(SightingTest.java:34)
+  <testcase classname="models.SightingTest" name="equals1" time="0.573">
+    <error message="Could not acquire a connection from DataSource - FATAL: no pg_hba.conf entry for host &quot;105.27.206.46&quot;, user &quot;qzolezuntvndsw&quot;, database &quot;d4duf0ekn59kv&quot;, SSL off" type="org.sql2o.Sql2oException">org.sql2o.Sql2oException: Could not acquire a connection from DataSource - FATAL: no pg_hba.conf entry for host &quot;105.27.206.46&quot;, user &quot;qzolezuntvndsw&quot;, database &quot;d4duf0ekn59kv&quot;, SSL off
+	at org.sql2o.Connection.createConnection(Connection.java:291)
+	at org.sql2o.Connection.&lt;init&gt;(Connection.java:51)
+	at org.sql2o.Sql2o.open(Sql2o.java:225)
+	at models.Sighting.saveSightedAnimal(Sighting.java:79)
+	at models.SightingTest.equals1(SightingTest.java:33)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -105,22 +98,27 @@
 	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+Caused by: org.postgresql.util.PSQLException: FATAL: no pg_hba.conf entry for host &quot;105.27.206.46&quot;, user &quot;qzolezuntvndsw&quot;, database &quot;d4duf0ekn59kv&quot;, SSL off
+	at org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:433)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:208)
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:67)
+	at org.postgresql.jdbc.PgConnection.&lt;init&gt;(PgConnection.java:216)
+	at org.postgresql.Driver.makeConnection(Driver.java:406)
+	at org.postgresql.Driver.connect(Driver.java:274)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:677)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:189)
+	at org.sql2o.GenericDatasource.getConnection(GenericDatasource.java:62)
+	at org.sql2o.Connection.createConnection(Connection.java:288)
+	... 33 more
 </error>
   </testcase>
-  <testcase classname="models.SightingTest" name="findAnimalById" time="0.036">
-    <error message="Could not map sighted_at to any property." type="org.sql2o.Sql2oException">org.sql2o.Sql2oException: Could not map sighted_at to any property.
-	at org.sql2o.DefaultResultSetHandlerFactory.newResultSetHandler0(DefaultResultSetHandlerFactory.java:156)
-	at org.sql2o.DefaultResultSetHandlerFactory.access$200(DefaultResultSetHandlerFactory.java:16)
-	at org.sql2o.DefaultResultSetHandlerFactory$3.evaluate(DefaultResultSetHandlerFactory.java:118)
-	at org.sql2o.DefaultResultSetHandlerFactory$3.evaluate(DefaultResultSetHandlerFactory.java:114)
-	at org.sql2o.tools.AbstractCache.get(AbstractCache.java:49)
-	at org.sql2o.DefaultResultSetHandlerFactory.newResultSetHandler(DefaultResultSetHandlerFactory.java:131)
-	at org.sql2o.PojoResultSetIterator.&lt;init&gt;(PojoResultSetIterator.java:21)
-	at org.sql2o.Query$10.iterator(Query.java:414)
-	at org.sql2o.Query.executeAndFetchFirst(Query.java:481)
-	at org.sql2o.Query.executeAndFetchFirst(Query.java:469)
-	at models.Sighting.findAnimalById(Sighting.java:105)
-	at models.SightingTest.findAnimalById(SightingTest.java:51)
+  <testcase classname="models.SightingTest" name="findAnimalById" time="0.61">
+    <error message="Could not acquire a connection from DataSource - FATAL: no pg_hba.conf entry for host &quot;105.27.206.46&quot;, user &quot;qzolezuntvndsw&quot;, database &quot;d4duf0ekn59kv&quot;, SSL off" type="org.sql2o.Sql2oException">org.sql2o.Sql2oException: Could not acquire a connection from DataSource - FATAL: no pg_hba.conf entry for host &quot;105.27.206.46&quot;, user &quot;qzolezuntvndsw&quot;, database &quot;d4duf0ekn59kv&quot;, SSL off
+	at org.sql2o.Connection.createConnection(Connection.java:291)
+	at org.sql2o.Connection.&lt;init&gt;(Connection.java:51)
+	at org.sql2o.Sql2o.open(Sql2o.java:225)
+	at models.Sighting.saveSightedAnimal(Sighting.java:79)
+	at models.SightingTest.findAnimalById(SightingTest.java:50)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
@@ -150,11 +148,170 @@
 	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
 	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
 	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+Caused by: org.postgresql.util.PSQLException: FATAL: no pg_hba.conf entry for host &quot;105.27.206.46&quot;, user &quot;qzolezuntvndsw&quot;, database &quot;d4duf0ekn59kv&quot;, SSL off
+	at org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:433)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:208)
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:67)
+	at org.postgresql.jdbc.PgConnection.&lt;init&gt;(PgConnection.java:216)
+	at org.postgresql.Driver.makeConnection(Driver.java:406)
+	at org.postgresql.Driver.connect(Driver.java:274)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:677)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:189)
+	at org.sql2o.GenericDatasource.getConnection(GenericDatasource.java:62)
+	at org.sql2o.Connection.createConnection(Connection.java:288)
+	... 33 more
 </error>
   </testcase>
-  <testcase classname="models.SightingTest" name="getId" time="0.014"/>
+  <testcase classname="models.SightingTest" name="getId" time="0.614">
+    <error message="Could not acquire a connection from DataSource - FATAL: no pg_hba.conf entry for host &quot;105.27.206.46&quot;, user &quot;qzolezuntvndsw&quot;, database &quot;d4duf0ekn59kv&quot;, SSL off" type="org.sql2o.Sql2oException">org.sql2o.Sql2oException: Could not acquire a connection from DataSource - FATAL: no pg_hba.conf entry for host &quot;105.27.206.46&quot;, user &quot;qzolezuntvndsw&quot;, database &quot;d4duf0ekn59kv&quot;, SSL off
+	at org.sql2o.Connection.createConnection(Connection.java:291)
+	at org.sql2o.Connection.&lt;init&gt;(Connection.java:51)
+	at org.sql2o.Sql2o.open(Sql2o.java:225)
+	at models.Sighting.saveSightedAnimal(Sighting.java:79)
+	at models.SightingTest.getId(SightingTest.java:12)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+Caused by: org.postgresql.util.PSQLException: FATAL: no pg_hba.conf entry for host &quot;105.27.206.46&quot;, user &quot;qzolezuntvndsw&quot;, database &quot;d4duf0ekn59kv&quot;, SSL off
+	at org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:433)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:208)
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:67)
+	at org.postgresql.jdbc.PgConnection.&lt;init&gt;(PgConnection.java:216)
+	at org.postgresql.Driver.makeConnection(Driver.java:406)
+	at org.postgresql.Driver.connect(Driver.java:274)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:677)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:189)
+	at org.sql2o.GenericDatasource.getConnection(GenericDatasource.java:62)
+	at org.sql2o.Connection.createConnection(Connection.java:288)
+	... 33 more
+</error>
+  </testcase>
   <testcase classname="models.SightingTest" name="getAnimal_location" time="0"/>
-  <testcase classname="models.SightingTest" name="saveSightedAnimal" time="0.023"/>
+  <testcase classname="models.SightingTest" name="saveSightedAnimal" time="0.453">
+    <error message="Could not acquire a connection from DataSource - FATAL: no pg_hba.conf entry for host &quot;105.27.206.46&quot;, user &quot;qzolezuntvndsw&quot;, database &quot;d4duf0ekn59kv&quot;, SSL off" type="org.sql2o.Sql2oException">org.sql2o.Sql2oException: Could not acquire a connection from DataSource - FATAL: no pg_hba.conf entry for host &quot;105.27.206.46&quot;, user &quot;qzolezuntvndsw&quot;, database &quot;d4duf0ekn59kv&quot;, SSL off
+	at org.sql2o.Connection.createConnection(Connection.java:291)
+	at org.sql2o.Connection.&lt;init&gt;(Connection.java:51)
+	at org.sql2o.Sql2o.open(Sql2o.java:225)
+	at models.Sighting.saveSightedAnimal(Sighting.java:79)
+	at models.SightingTest.saveSightedAnimal(SightingTest.java:42)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+Caused by: org.postgresql.util.PSQLException: FATAL: no pg_hba.conf entry for host &quot;105.27.206.46&quot;, user &quot;qzolezuntvndsw&quot;, database &quot;d4duf0ekn59kv&quot;, SSL off
+	at org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:433)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:208)
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:67)
+	at org.postgresql.jdbc.PgConnection.&lt;init&gt;(PgConnection.java:216)
+	at org.postgresql.Driver.makeConnection(Driver.java:406)
+	at org.postgresql.Driver.connect(Driver.java:274)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:677)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:189)
+	at org.sql2o.GenericDatasource.getConnection(GenericDatasource.java:62)
+	at org.sql2o.Connection.createConnection(Connection.java:288)
+	... 33 more
+</error>
+  </testcase>
   <testcase classname="models.SightingTest" name="getAnimal_id" time="0"/>
-  <testcase classname="models.SightingTest" name="allSightings" time="0.039"/>
+  <testcase classname="models.SightingTest" name="allSightings" time="0.578">
+    <error message="Could not acquire a connection from DataSource - FATAL: no pg_hba.conf entry for host &quot;105.27.206.46&quot;, user &quot;qzolezuntvndsw&quot;, database &quot;d4duf0ekn59kv&quot;, SSL off" type="org.sql2o.Sql2oException">org.sql2o.Sql2oException: Could not acquire a connection from DataSource - FATAL: no pg_hba.conf entry for host &quot;105.27.206.46&quot;, user &quot;qzolezuntvndsw&quot;, database &quot;d4duf0ekn59kv&quot;, SSL off
+	at org.sql2o.Connection.createConnection(Connection.java:291)
+	at org.sql2o.Connection.&lt;init&gt;(Connection.java:51)
+	at org.sql2o.Sql2o.open(Sql2o.java:225)
+	at models.Sighting.saveSightedAnimal(Sighting.java:79)
+	at models.SightingTest.allSightings(SightingTest.java:57)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:50)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:12)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:47)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:17)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:325)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:78)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:57)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:290)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:71)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:288)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:58)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:268)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:363)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:566)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+Caused by: org.postgresql.util.PSQLException: FATAL: no pg_hba.conf entry for host &quot;105.27.206.46&quot;, user &quot;qzolezuntvndsw&quot;, database &quot;d4duf0ekn59kv&quot;, SSL off
+	at org.postgresql.core.v3.ConnectionFactoryImpl.doAuthentication(ConnectionFactoryImpl.java:433)
+	at org.postgresql.core.v3.ConnectionFactoryImpl.openConnectionImpl(ConnectionFactoryImpl.java:208)
+	at org.postgresql.core.ConnectionFactory.openConnection(ConnectionFactory.java:67)
+	at org.postgresql.jdbc.PgConnection.&lt;init&gt;(PgConnection.java:216)
+	at org.postgresql.Driver.makeConnection(Driver.java:406)
+	at org.postgresql.Driver.connect(Driver.java:274)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:677)
+	at java.sql/java.sql.DriverManager.getConnection(DriverManager.java:189)
+	at org.sql2o.GenericDatasource.getConnection(GenericDatasource.java:62)
+	at org.sql2o.Connection.createConnection(Connection.java:288)
+	... 33 more
+</error>
+  </testcase>
 </testsuite>

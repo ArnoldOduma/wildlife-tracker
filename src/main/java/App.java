@@ -70,7 +70,6 @@ public class App {
 
         post("/new-endangered", (req,res)->{
             Map<String, Object> model = new HashMap<>();
-
             String name = req.queryParams("name");
             String health = req.queryParams("health");
             String age = req.queryParams("age");

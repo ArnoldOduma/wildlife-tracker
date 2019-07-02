@@ -21,6 +21,11 @@ public class EndangeredAnimal  {
         this.id = 1;
     }
 
+    //set up new animal
+    public static EndangeredAnimal newEndangeredAnimal(){
+        return new EndangeredAnimal("Porcupine","healthy","Young");
+    }
+
     public int getAnimal_id() {
         return animal_id;
     }
@@ -80,7 +85,7 @@ public class EndangeredAnimal  {
 
 //    @Override
     public void saveAnimal(EndangeredAnimal endangeredAnimal) {
-        try (Connection conn = Database.sql2otest2.open()){
+        try (Connection conn = Database.sql2o.open()){
             String sql = "INSERT INTO  endangered_animals(animal_name, animal_age, animal_health ) VALUES (:animal_name, :animal_age,:animal_health);";
             this.id = (int) conn.createQuery(sql, true)
                     .addParameter("animal_name", this.animal_name)
@@ -92,7 +97,7 @@ public class EndangeredAnimal  {
     }
 
     public static List<EndangeredAnimal> getAllAnimals() {
-        try(Connection conn = Database.sql2otest2.open()){
+        try(Connection conn = Database.sql2o.open()){
             String sql = "SELECT * FROM endangered_animals ORDER BY id DESC;";
             return conn.createQuery(sql)
                     .throwOnMappingFailure(false)
@@ -103,7 +108,7 @@ public class EndangeredAnimal  {
 //    @Override
     public EndangeredAnimal findById(int id) {
         String sql = "SELECT * FROM endangered_animals WHERE id=:id";
-        try (Connection conn = Database.sql2otest2.open()){
+        try (Connection conn = Database.sql2o.open()){
             EndangeredAnimal animal = conn.createQuery(sql)
                     .addParameter("id",id)
                     .executeAndFetchFirst(EndangeredAnimal.class);
